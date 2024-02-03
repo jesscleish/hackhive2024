@@ -5,10 +5,32 @@
     {{ nav_link('item', 'Item Lookup') }} <!-- for karens asking DO YOU HAVE XYZ -->
 {% endblock %}
 
-{% block page_content %}
-    <!-- add search bar here -->
+{% block pos %}
+<div>
+    <h3>SKU</h3>
+    <form action="">
+        <label for="barcode">Barcode (number):</label>
+        <input type="number" id="barcode" name="barcode"><br>
+        <input type="submit" value="ADD"> <!-- probably need to append to lists onclick, and add value to total -->
+      </form>
+</div>
 
-    <!-- div and <p> or blank list item here -->
+<div>
+    <h4>Items</h4>
+    <img src="./assets/shopping-bag.png" width="50">
 
+    order_items = [] <!-- how do i keep a running list of added items -->
+    order_prices = []
+    total_price = 0
+    count = 0
+    <ul>
+        {% for item in order_items %}
+            <li><p>{{ item }}</p> <p>{{ order_prices[count] }}</p></li>
+            count +=1
+        {% endfor %}
+    </ul>
+
+    <p>Total:</p>
+</div>
 {% endblock %}
 
