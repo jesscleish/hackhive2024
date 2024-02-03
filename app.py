@@ -13,13 +13,35 @@ def hello_world():  # put application's code here
 
 @app.route('/admin')
 def admin_home():
-    render_template('admin/home.html') #this should work properly??
+    return render_template('admin/home.html') #this should work properly??
     #templates/admin/home ?
+
+
+@app.route('/admin/sales')
+def sales():
+    return render_template('admin/sales.html') #this should work properly??
+    #templates/admin/home ?
+
+@app.route('/admin/inv')
+def inv():
+    return render_template('admin/inventory.html') #this should work properly??
+    #templates/admin/home ?
+
+@app.route('/admin/users')
+def users():
+    return render_template('admin/users.html') #this should work properly??
+    #templates/admin/home ?
+
 
 @app.route('/employee')
 def employee_home():
-    render_template('employee/home.html')
+    return render_template('employee/home.html')
     #templates/employee/home ?
+
+@app.route('/employee/item')
+def item():
+    return render_template('employee/item.html') #this should work properly??
+    #templates/admin/home ?
 
 if __name__ == '__main__':
     app.run()
