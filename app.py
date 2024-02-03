@@ -8,7 +8,7 @@ def hello_world():  # put application's code here
 #    return 'Hello World!'
 
 #this will be our login page eventually
-    return '<a href="/admin">admin stuff</a> <br> <a href="/employee/">employee stuff</a>'
+    return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
 #
 
 @app.route('/admin')
