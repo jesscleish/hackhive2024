@@ -5,4 +5,30 @@
     {{ nav_link('item', 'Item Lookup') }} <!-- for karens asking DO YOU HAVE XYZ -->
 {% endblock %}
 
+{% block pos %}
+    <form>
+        <!-- can search by sku -->
+        <label for ="shoesku">Enter the SKU:</label>
+        <input type="text" id="shoesku">
+    </form>
 
+     <form>
+        <!-- lookup item based on categories in database -->
+        <label for="shoes">Choose footwear type:</label>
+
+        <select name="shoes" id="shoes">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+
+        <label for="brand">Choose Brand:</label>
+        <select name="brand" id="brand">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+     </form>
+{% endblock %}
