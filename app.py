@@ -38,5 +38,11 @@ def item():
     return render_template('employee/item.html') #this should work properly??
     #templates/admin/home ?
 
+@app.route('/logout')
+def logout():
+    #want to clear any cookies/caching we do
+
+    return render_template('login.html')
+
 if __name__ == '__main__':
     app.run()
