@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, jsonify
 
 app = Flask(__name__)
 
@@ -44,11 +44,14 @@ def logout():
 
     return render_template('login.html')
 
-@app.route('/logout')
-def logout():
-    #want to clear any cookies/caching we do
+@app.route('/get_item/<barcode>')
+def get_item(barcode):
 
-    return render_template('login.html')    
+    #SQL query to get item with barcode from database
+    if item:
+        return jsonify(item)
+    else:
+        return jsonify({'error': 'Item not found'}), 404
 
 if __name__ == '__main__':
     app.run()
