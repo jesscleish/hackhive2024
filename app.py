@@ -1,7 +1,9 @@
 import psycopg2
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, redirect, url_for, request, session, flash
+import bcrypt
 
 app = Flask(__name__)
+#salt = bcrypt.gensalt(rounds=12)
 
 
 @app.route('/')
@@ -67,44 +69,93 @@ def test_db():  # put application's code here
 
 @app.route('/admin')
 def admin_home():
+    if not isAdmin():
+        flash(f'You must be an admin.', 'warning')
+        return redirect(url_for(''))
     return render_template('admin/home.html')  # this should work properly??
     # templates/admin/home ?
 
 
 @app.route('/admin/sales')
 def sales():
+    if not isAdmin():
+        flash(f'You must be an admin.', 'warning')
+        return redirect(url_for(''))
     return render_template('admin/sales.html')  # this should work properly??
     # templates/admin/home ?
 
 
 @app.route('/admin/users')
 def users():
+    if not isAdmin():
+        flash(f'You must be an admin.', 'warning')
+        return redirect(url_for(''))
     return render_template('admin/users.html')  # this should work properly??
     # templates/admin/home ?
 
 
 @app.route('/admin/item')
 def sku_search():
+    if not isAdmin():
+        flash(f'You must be an admin.', 'warning')
+        return redirect(url_for(''))
     return render_template('admin/item.html')
 
 
 @app.route('/employee')
 def employee_home():
+    if not isLoggedIn():
+        flash(f'You must be logged in.', 'warning')
+        return redirect(url_for(''))
     return render_template('employee/home.html')
     # templates/employee/home ?
 
 
 @app.route('/employee/item')
 def item():
+    if not isLoggedIn():
+        flash(f'You must be logged in.', 'warning')
+        return redirect(url_for(''))
     return render_template('employee/item.html')  # this should work properly??
     # templates/admin/home ?
 
 
+@app.route('/login', methods=['POST'])
+def login():
+
+    username = request.form.get('username')
+    password = request.form.get('password')
+    success = False
+
+    # now check against our own database
+    #check if username is in db, if no redirect to login pg
+    db_user =""
+    #if username in db, check password against stored password
+    db_pass = ""
+
+    if (username != "admin" and password != "admin") or (username != "emp" and password != "emp"):
+        success = bcrypt.checkpw(password, db_pass)
+    else:
+        if password == db_pass:
+            success = True
+
+    if success:
+        #check what user status associated with username
+        db_user_status =""
+        session['username'] = username
+        if db_user_status == 1:
+            session['user'] = 1
+            return render_template('admin/home.html')
+        else:
+            session['user'] = 0
+            return render_template('employee/home.html')
+
+    return render_template('login.html') #maybe add some sort of message
+
 @app.route('/logout')
 def logout():
-    # want to clear any cookies/caching we do
-
-    return render_template('login.html')
+    session.clear()
+    return redirect(url_for('login'))
 
 
 @app.route('/get_item/<barcode>')
@@ -116,5 +167,22 @@ def get_item(barcode):
         return jsonify({'error': 'Item not found'}), 404
 
 
+def isLoggedIn():
+    try:
+        if session['user']:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+def isAdmin():
+    try:
+        if session['user'] == 1:
+            return True
+        else:
+            return False
+    except:
+        return False
 if __name__ == '__main__':
     app.run()
