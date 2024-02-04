@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head><u><strong>Good Sole</strong></u></head>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>login Page</title>
+	<link rel="stylesheet" href="static/loginStyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> <!-- bulma -->
+</head>
 
 <body>
+<div class="heading">
+<h3 class="top"><strong><u>Good Sole</u></strong></h3>
+</div>
 
-<img src="https://www.designevo.com/res/templates/thumb_small/five-pointed-star-simple-jar.webp" width="200" height"400">
+<img class="logo" src="/static/images/logo.jpeg" width="200">
 
 <form action ="{{ url_for('login2') }}" method ="post">
-	<label for="fUsername">Username:</label><br>
-	<input type="text" id="fUsername" name="fUsername"><br>
+	<p class ="login"><strong>Login</strong></p>
+	<br>
+	<label for="fUsername" class="fUsername">Username:</label> <input type="text" class="fUsernamein" name="fUsername" title="Please fill out this field"><br>
+	<br>
+	<label for="fPassword" class="fPassword">Password:</label> <input type="password" class="fPasswordin" name="fPassword" title="Please fill out this field"><br>
+	<br>
+	<button type="submit" class="button">Log In</button>
+	<br>
 
-	<label for="fPassword">Password:</label><br>
-	<input type="text" id="fPassword" name="fPassword"><br>
-    <input type="submit" value="login">
-	
 </form>
 
-
+<div class="footer">
+    <p class="copyright">Copyright ©2024 <br> HackHive TEAM 25</p>
+</div>
 
 </body>
 </html>

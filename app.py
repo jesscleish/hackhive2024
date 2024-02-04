@@ -11,8 +11,8 @@ def hello_world():  # put application's code here
     #    return 'Hello World!'
     session['user'] = 1
     # this will be our login page eventually
-    return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
-    #return render_template("login.html")
+    #return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
+    return render_template("login.html")
 
 @app.route('/testDB')
 def test_db():  # put application's code here
@@ -130,7 +130,9 @@ def item():
     return render_template('employee/item.html')  # this should work properly??
     # templates/admin/home ?
 
-
+@app.route('/login2', methods=['GET'])
+def login3():
+    return render_template('login.html')
 @app.route('/login2', methods=['POST'])
 def login2():
     username = request.form.get('fUsername')
@@ -138,6 +140,10 @@ def login2():
     session['username'] = username
 
     if username == "admin" and password == "admin":
+        session['user'] = 1
+        return render_template('admin/home.html')
+
+    if username == "" and password == "":
         session['user'] = 1
         return render_template('admin/home.html')
 
@@ -211,6 +217,7 @@ def isAdmin():
             return False
     except:
         return False
+
 if __name__ == '__main__':
     # Quick test configuration. Please use proper Flask configuration options
     # in production settings, and use a separate file or environment variables

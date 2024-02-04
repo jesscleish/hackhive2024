@@ -1,6 +1,6 @@
 .heading{
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 30px;
     background-color: #8FBDD3;
     margin-top: 0;
@@ -50,14 +50,14 @@
 
 .info1{
     text-align: left;
-    font-family: 'Futura', Arial, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 
 }
 
 body{
     margin: 0;
     text-align: center;
-    font-family: 'Futura', Arial, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     background-color: #E4D1B9;
     
 }
@@ -73,7 +73,7 @@ body{
 }
 
 .copyright{
-    font-family: 'Futura', Arial, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 100px;
     text-align: left;
     font-size: small;

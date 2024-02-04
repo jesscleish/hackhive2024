@@ -1,1 +1,89 @@
 /* Custom css goes in this file */
+.hidden
+{
+    visibility: hidden;
+}
+
+
+.header{
+    text-align: center;
+    font-weight: bold;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    margin-bottom: 0;
+}
+
+
+.adder{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.userinput{
+    font-size: 20px;
+
+}
+
+.logo{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.logoimg{
+    border-radius: 15px;
+}
+
+.remover{
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.company{
+    font-size: 30px;
+    text-align: center;
+}
+
+.top{
+    align-items: centers;
+    width: 100%;
+    background-color: #8FBDD3;
+    display: inline-block;
+}
+
+.addcolor{
+    padding-top: 2px;
+    padding-bottom: 25px;
+    width: 100%;
+    background-color: #E4D1B9;
+}
+
+.headingcolor{
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color:  white;
+}
+
+.deletecolor{
+    padding-top: 10px;
+    background-color: #BE8C63;
+    padding-bottom: 50px;
+}
+
+.footer{
+    background-color: #A97155;
+    padding-TOP: 2%;
+    padding-bottom: 1%;
+    bottom: 0%;
+    width: 100%;
+    bottom: 0;
+    padding-left: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.copyright{
+    text-align: left;
+    font-size: small;
+    color: white;
+}
