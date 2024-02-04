@@ -162,12 +162,10 @@ def login():
     if username == "admin" and password == "admin":
         session['user'] = 1
         return render_template('admin/home.html')
-
-    if username == "" and password == "":
+    elif username == "" and password == "":
         session['user'] = 1
         return render_template('admin/home.html')
-
-    if username == "emp" and password == "emp":
+    elif username == "emp" and password == "emp":
         session['user'] = 0
         return render_template('employee/home.html')
 
