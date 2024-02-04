@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, jsonify
-
+import psycopg2
 app = Flask(__name__)
 
 
@@ -9,7 +9,15 @@ def hello_world():  # put application's code here
 
 #this will be our login page eventually
     return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
-#
+
+
+@app.route('/testDB')
+def test_db():  # put application's code here
+    conn_string = "dbname=goodsole-inventorymanagement-database host=goodsole-inventorymanagement-server.postgres.database.azure.com port=5432 sslmode=require user=lfmxqslkgr password={password}"
+    conn = psycopg2.connect(conn_string)
+    conn.close()
+    return ("Connection established")
+
 
 @app.route('/admin')
 def admin_home():
