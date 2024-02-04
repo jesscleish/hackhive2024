@@ -22,11 +22,6 @@ def sales():
     return render_template('admin/sales.html') #this should work properly??
     #templates/admin/home ?
 
-@app.route('/admin/inv')
-def inv():
-    return render_template('admin/inventory.html') #this should work properly??
-    #templates/admin/home ?
-
 @app.route('/admin/users')
 def users():
     return render_template('admin/users.html') #this should work properly??

@@ -1,14 +1,42 @@
 {% extends "admin/base.html" %}
 {% block title %}Users -- Admin{% endblock %}
 {% block navigation %}
-    {{ nav_link('admin_home', 'Home') }}
-    {{ nav_link('inv', 'Inventory') }}
+    {{ nav_link('admin_home', 'Inventory') }}
     {{ nav_link('sales', 'Sales') }}
     {{ nav_link('users', 'Users') }}
 {% endblock %}
 {% block page_content %}
 
     <!-- add username and password -->
+
+    <div>
+    <h4><u>ADD</u></h4>
+        <form action="" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="create_user" name="create_user">
+            <br>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="create_pass" name="create_pass">
+            <br>
+            <br>
+            <input type="checkbox">
+            <label>User Admin?</label>
+            <br>
+            <input type="submit" value="Create User">
+        </form>
+    </div>
+    <br>
+    <div>
+      <h4><u>DELETE</u></h4>
+      <form action="" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="delete_user" name="delete_user">
+        <br>
+        <br>
+        <input type="submit" value="Delete">
+        </form>
+    </div>
 
 {% endblock %}
 
