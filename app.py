@@ -1,5 +1,6 @@
 import psycopg2
 from flask import Flask, render_template, jsonify
+
 app = Flask(__name__)
 
 
@@ -40,20 +41,23 @@ def test_db():  # put application's code here
     cursor.execute("INSERT INTO inventory (SKU, ShoeName)VALUES (%s, %s);", (3, "Adidas"))
     text += ("Inserted 3 rows of data")
 
-    # Clean up
 
-    sql = '''SELECT * FROM inventory;'''
+    cursor.execute("SELECT * FROM inventory;")
 
-    # executing the sql command
-    cursor.execute(sql)
     try:
     # fetching all the rows
-        results = cursor.fetchall()
-        text += results
+        rows = cursor.fetchall()
+        try:
+            text+=str(len(rows))
+            for row in rows:
+                text = ("Data row = (%s, %s, %s)" % (str(row[0]), str(row[1]), str(row[2])))
+        except:
+            text+= "failed to parse len of a list"
     except:
-        text+="fail"
+        text+="failed to get result"
 
-        
+
+
     conn.commit()
     cursor.close()
     conn.close()
