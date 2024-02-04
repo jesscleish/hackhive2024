@@ -33,7 +33,7 @@
             {% endfor %}
         </select>
 
-     {%  set shoe_types = ["any", "sandal", "sneaker", "running shoe", "boot", "heel"] %}
+     {%  set shoe_types = ["Any", 'Sneaker', 'Running Shoe', 'Sandal', 'Boot', 'Heel'] %}
          <label for="shoetype">Choose Type:</label>
         <select name="shoetype" id="shoetype">
             {% for type in shoe_types %}
@@ -56,7 +56,7 @@
             {% endfor %}
         </select>
 
-     {% set colours = [] %}
+     {% set colours = ['Any','Red', 'Blue', 'Black', 'White', 'Brown', 'Green', 'Gray', 'Purple', 'Yellow', 'Orange'] %}
      <label for="colour">Choose Colour:</label>
         <select name="colour" id="colour">
             {% for item in colours %}
