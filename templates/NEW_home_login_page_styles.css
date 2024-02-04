@@ -1,0 +1,81 @@
+.heading{
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    background-color: #8FBDD3;
+    margin-top: 0;
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.top{
+    
+    display: inline-block;
+    margin: auto;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.fUsername{
+
+    font-size: 20px;
+}
+
+.fPassword{
+
+    font-size: 20px;
+}
+
+.button1{
+    font-size: 30.1px;
+    height:30.33px;
+    width:100px;
+    background-color: #8FBDD3;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.button1:hover {
+    background-color: #A97155;
+    color: white;
+}
+
+.logo{
+    border-radius: 25px;
+}
+
+.login{
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.info1{
+    text-align: left;
+    font-family: 'Futura', Arial, sans-serif;
+
+}
+
+body{
+    margin: 0;
+    text-align: center;
+    font-family: 'Futura', Arial, sans-serif;
+    background-color: #E4D1B9;
+    
+}
+
+.footer{
+    background-color: #A97155;
+    padding-TOP: 1%;
+    padding-bottom: 1%;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    padding-left: 10px;
+}
+
+.copyright{
+    font-family: 'Futura', Arial, sans-serif;
+    font-size: 100px;
+    text-align: left;
+    font-size: small;
+    color: white;
+}
