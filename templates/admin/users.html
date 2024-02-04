@@ -13,7 +13,7 @@
         <!-- add username and password -->
         <div class="addcolor box">
             <h4 class="adder"><u>ADD A USER</u></h4>
-            <form action="{{ url_for('login2') }}" method="post">
+            <form action="{{ url_for('login') }}" method="post">
                 <label for="username" class="userinput ">Username:</label>
                 <input type="text" id="create_user" name="create_user">
                 <br>
@@ -24,14 +24,14 @@
                 <br>
                 <input id="adminbox" class="adminbox" type="checkbox">
                 <label for="adminbox">User Admin?</label>
-                <br>
+                <br> <br>
                 <input class="button" type="submit" value="Create User">
             </form>
         </div>
         <br>
         <div class="deletecolor box">
             <h4 class="remover"><u>DELETE A USER</u></h4>
-            <form action="{{ url_for('login2') }}" method="post">
+            <form action="{{ url_for('login') }}" method="post">
                 <label class="userinput" for="username">Username:</label>
                 <input type="text" id="delete_user" name="delete_user">
                 <br>

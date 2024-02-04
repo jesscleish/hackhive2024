@@ -1,10 +1,7 @@
 import psycopg2
 from flask import Flask, render_template, jsonify, redirect, url_for, request, session, flash
-import bcrypt
 
 app = Flask(__name__)
-#salt = bcrypt.gensalt(rounds=12)
-
 
 @app.route('/')
 def hello_world():  # put application's code here
@@ -115,9 +112,9 @@ def sku_search():
 
 @app.route('/employee')
 def employee_home():
-    if not isLoggedIn():
-        flash(f'You must be logged in.', 'warning')
-        return redirect(url_for('hello_world'))
+    #if not isLoggedIn():
+     #   flash(f'You must be logged in.', 'warning')
+     #   return redirect(url_for('hello_world'))
     return render_template('employee/home.html')
     # templates/employee/home ?
 
@@ -130,9 +127,7 @@ def item():
     return render_template('employee/item.html')  # this should work properly??
     # templates/admin/home ?
 
-@app.route('/login2', methods=['GET'])
-def login3():
-    return render_template('login.html')
+
 @app.route('/login2', methods=['POST'])
 def login2():
     username = request.form.get('fUsername')
@@ -153,24 +148,34 @@ def login2():
 
     return render_template('login.html')  # maybe add some sort of message
 
+@app.route('/login', methods=['GET'])
+def login3():
+    return render_template('login.html')
 @app.route('/login', methods=['POST'])
 def login():
 
     username = request.form.get('fUsername')
     password = request.form.get('fPassword')
     success = False
+    session['username'] = username
+
+    if username == "admin" and password == "admin":
+        session['user'] = 1
+        return render_template('admin/home.html')
+
+    if username == "" and password == "":
+        session['user'] = 1
+        return render_template('admin/home.html')
+
+    if username == "emp" and password == "emp":
+        session['user'] = 0
+        return render_template('employee/home.html')
 
     # now check against our own database
     #check if username is in db, if no redirect to login pg
     db_user =""
     #if username in db, check password against stored password
     db_pass = ""
-
-    if (username != "admin" and password != "admin") or (username != "emp" and password != "emp"):
-        success = bcrypt.checkpw(password, db_pass)
-    else:
-        if password == db_pass:
-            success = True
 
     if success:
         #check what user status associated with username
@@ -188,7 +193,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login2'))
+    return redirect(url_for('login'))
 
 
 @app.route('/get_item/<barcode>')
@@ -202,7 +207,9 @@ def get_item(barcode):
 
 def isLoggedIn():
     try:
-        if session['user']:
+        if session['user'] == 1:
+            return True
+        elif session['user'] == 0:
             return True
         else:
             return False

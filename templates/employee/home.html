@@ -7,57 +7,58 @@
 {% endblock %}
 
 {% block pos %}
-<div class="barcode">
-    <h3>SKU</h3>
-    <form action="">
-        <label for="barcode">Barcode (number):</label>
-        <input type="number" id="barcode" name="barcode" class="barcode"><br>
-        <input class="button" type="button" value="ADD" onclick="addItem()"> <!-- probably need to append to lists onclick, and add value to total -->
-      </form>
+    <div class="container">
+        <div class="barcode box center">
+            <h3>SKU</h3>
+            <form action="">
+                <label for="barcode">Barcode (number):</label>
+                <input type="number" id="barcode" name="barcode" class="barcode"><br>
+                <input class="button" type="button" value="ADD" onclick="addItem()">
+                <!-- probably need to append to lists onclick, and add value to total -->
+            </form>
+        </div>
+    <div>
+        <h4>Items</h4>
+        <img src="../../static/images/shopping-bag.png" width="70">
 
-</div>
-</div>
+        <ul>
+            {% for item in order_items %}
+                <li><p>{{ item }}</p>
+                    <p>{{ order_prices[count] }}</p></li>
+                count +=1
+            {% endfor %}
+        </ul>
 
-<div>
-    <h4>Items</h4>
-    <img src="../../static/images/shopping-bag.png" width="70">
+        <p>Total: <span id="total_price">0</span></p>
+    </div>
+    </div>
+    <div class="barcode"></div>
+    <script>
+        function addItem() {
+            var barcode = document.getElementById('barcode').value;
 
-    <ul>
-        {% for item in order_items %}
-            <li><p>{{ item }}</p> <p>{{ order_prices[count] }}</p></li>
-            count +=1
-        {% endfor %}
-    </ul>
+            // Make an AJAX request to the Flask server
+            fetch('/get_item/' + barcode)
+                .then(response => response.json())
+                .then(data => {
+                    // Process the data and update the template
+                    update_page(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
-    <p>Total: <span id="total_price">0</span></p>
-</div>
+        function update_page(data) {
+            // get elements from html document
+            var items_list = document.getElementById('orderList');
+            var total = document.getElementById('totalPrice');
 
-<script>
-function addItem() {
-    var barcode = document.getElementById('barcode').value;
+            var item_add = document.createElement('li');
+            item_add.innerHTML = '<p>' + data.name + '</p><p>' + data.price + '</p>';
+            items_list.appendChild(item_add);
 
-    // Make an AJAX request to the Flask server
-    fetch('/get_item/' + barcode)
-        .then(response => response.json())
-        .then(data => {
-            // Process the data and update the template
-            update_page(data);
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-function update_page(data) {
-    // get elements from html document
-    var items_list = document.getElementById('orderList');
-    var total = document.getElementById('totalPrice');
-
-    var item_add = document.createElement('li');
-    item_add.innerHTML = '<p>' + data.name + '</p><p>' + data.price + '</p>';
-    items_list.appendChild(item_add);
-
-    // Update the total price
-    total.textContent = parseFloat(total.textContent) + data.price;
-}
-</script>
+            // Update the total price
+            total.textContent = parseFloat(total.textContent) + data.price;
+        }
+    </script>
 {% endblock %}
 
