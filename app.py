@@ -1,15 +1,35 @@
 import psycopg2
 from flask import Flask, render_template, jsonify, redirect, url_for, request, session, flash
+from dotenv import load_dotenv
+import MySQLdb
+import os
 
 app = Flask(__name__)
+
+# Load the environment variables file
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(BASEDIR, 'db.env'))
+
+# Connect to the database
+db = MySQLdb.connect(host=os.getenv('DB_HOST'),  # your host, usually localhost
+                     user=os.getenv('DB_USER'),  # your username
+                     passwd=os.getenv('DB_PASS'),  # your password
+                     db=os.getenv('DB'),  # name of the database
+                     autocommit=True,
+                     ssl_mode="VERIFY_IDENTITY",
+                     ssl={
+                         "ca": "./cacert.pem"
+                     })
+
 
 @app.route('/')
 def hello_world():  # put application's code here
     #    return 'Hello World!'
     session['user'] = 1
     # this will be our login page eventually
-    #return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
+    # return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
     return render_template("login.html")
+
 
 @app.route('/testDB')
 def test_db():  # put application's code here
@@ -40,22 +60,19 @@ def test_db():  # put application's code here
     cursor.execute("INSERT INTO inventory (SKU, ShoeName)VALUES (%s, %s);", (3, "Adidas"))
     text += ("Inserted 3 rows of data")
 
-
     cursor.execute("SELECT * FROM inventory;")
 
     try:
-    # fetching all the rows
+        # fetching all the rows
         rows = cursor.fetchall()
         try:
-            text+=str(len(rows))
+            text += str(len(rows))
             for row in rows:
                 text = ("Data row = (%s, %s, %s)" % (str(row[0]), str(row[1]), str(row[2])))
         except:
-            text+= "failed to parse len of a list"
+            text += "failed to parse len of a list"
     except:
-        text+="failed to get result"
-
-
+        text += "failed to get result"
 
     conn.commit()
     cursor.close()
@@ -90,6 +107,7 @@ def users():
     return render_template('admin/users.html')  # this should work properly??
     # templates/admin/home ?
 
+
 @app.route('/admin/addUser', methods=['POST'])
 def addUser():
     if not isAdmin():
@@ -110,11 +128,30 @@ def sku_search():
     return render_template('admin/item.html')
 
 
+@app.route('/admin/get_inventory')
+def get_inventory():
+    if not isAdmin():
+        flash(f'You must be an admin.', 'warning')
+        return redirect(url_for('hello_world'))
+
+    # does not use warehouse as a filter, assumes user wants to know all locations
+    query = """SELECT * FROM shoes ORDER BY QuantityInStock ASC, SKU ASC"""
+    c = db.cursor()
+    varhold = c.execute(query)
+    if varhold > 0:
+        shoes = c.fetchall()
+
+        # Return the results as JSON
+        return jsonify({'result': 'OK', 'shoes': shoes}), 200
+    else:
+        return jsonify({'result': 'ERROR', 'msg': 'could not retrieve parts'}), 400
+
+
 @app.route('/employee')
 def employee_home():
-    #if not isLoggedIn():
-     #   flash(f'You must be logged in.', 'warning')
-     #   return redirect(url_for('hello_world'))
+    # if not isLoggedIn():
+    #   flash(f'You must be logged in.', 'warning')
+    #   return redirect(url_for('hello_world'))
     return render_template('employee/home.html')
     # templates/employee/home ?
 
@@ -128,32 +165,13 @@ def item():
     # templates/admin/home ?
 
 
-@app.route('/login2', methods=['POST'])
-def login2():
-    username = request.form.get('fUsername')
-    password = request.form.get('fPassword')
-    session['username'] = username
-
-    if username == "admin" and password == "admin":
-        session['user'] = 1
-        return render_template('admin/home.html')
-
-    if username == "" and password == "":
-        session['user'] = 1
-        return render_template('admin/home.html')
-
-    if username == "emp" and password == "emp":
-        session['user'] = 0
-        return render_template('employee/home.html')
-
-    return render_template('login.html')  # maybe add some sort of message
-
 @app.route('/login', methods=['GET'])
 def login3():
     return render_template('login.html')
+
+
 @app.route('/login', methods=['POST'])
 def login():
-
     username = request.form.get('fUsername')
     password = request.form.get('fPassword')
     success = False
@@ -170,14 +188,14 @@ def login():
         return render_template('employee/home.html')
 
     # now check against our own database
-    #check if username is in db, if no redirect to login pg
-    db_user =""
-    #if username in db, check password against stored password
-    db_pass = ""
-
+        # Replace the following placeholder query with your actual query
+        query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        cursor = db.cursor()
+        cursor.execute(query, (username, password))
+        user = cursor.fetchone()
     if success:
-        #check what user status associated with username
-        db_user_status =""
+        # check what user status associated with username
+        db_user_status = user['is_admin']
         session['username'] = username
         if db_user_status == 1:
             session['user'] = 1
@@ -186,7 +204,8 @@ def login():
             session['user'] = 0
             return render_template('employee/home.html')
 
-    return render_template('login.html') #maybe add some sort of message
+    return render_template('login.html')  # maybe add some sort of message
+
 
 @app.route('/logout')
 def logout():
@@ -194,13 +213,33 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/get_item/<barcode>')
-def get_item(barcode):
+@app.route('/get_item/', methods=['POST', 'GET'])
+def get_item():
+    barcode = request.form.get('barcode')
     # SQL query to get item with barcode from database
-    if item:
-        return jsonify(item)
+    query = "SELECT * FROM shoes WHERE sku = %s"
+    c = db.cursor()
+    c.execute(query, [barcode])
+
+    # Fetch the results using the cursor
+    shoes = c.fetchone()
+    adminuser = False
+    adminuser = False
+    if session['user'] == 1:
+        adminuser = True
+
+    if adminuser:
+        if shoes:
+            # Render the template with the query results
+            return render_template('admin/itemResult.html', shoes=shoes)
+        else:
+            return render_template('admin/itemResult.html')
     else:
-        return jsonify({'error': 'Item not found'}), 404
+        if shoes:
+            # Render the template with the query results
+            return render_template('employee/itemResult.html', shoes=shoes)
+        else:
+            return render_template('employee/itemResult.html')
 
 
 def isLoggedIn():
@@ -214,6 +253,7 @@ def isLoggedIn():
     except:
         return False
 
+
 def isAdmin():
     try:
         if session['user'] == 1:
@@ -223,11 +263,12 @@ def isAdmin():
     except:
         return False
 
+
 if __name__ == '__main__':
     # Quick test configuration. Please use proper Flask configuration options
     # in production settings, and use a separate file or environment variables
     # to manage the secret key!
-    app.secret_key = 'super secret key'
+    app.secret_key = 'HackHiveTeam25'
     app.config['SESSION_TYPE'] = 'filesystem'
 
     app.run()

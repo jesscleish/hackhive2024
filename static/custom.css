@@ -140,6 +140,10 @@ label{
     color: black;
 }
 
+.purch {
+    background-color: #4d9c4e;
+    color: white;
+}
 table{
     background-color: white;
     border-radius: 10px;

@@ -11,13 +11,13 @@
 {% block page_content %}
     <div class="container">
         <div class="box boxbck">
-            <h1 class="title is-3">SKU Item Lookup</h1>
-            <form class="align-center">
+                        <h1 class="title is-3">SKU Item Lookup</h1>
+            <form class="align-center" action="{{ url_for('get_item', barcode='') }}" method="POST">
                 <!-- can search by sku -->
-                <label for="shoesku">Enter the SKU:</label>
-                <input type="text" id="shoesku" name="shoesku" class="input">
+                <label for="barcode" class="subtitle">Enter the SKU:</label>
+                <input type="text" id="barcode" name="barcode" class="input">
                 <br><br>
-                <input type="submit" class="button is-medium" value="SEARCH">
+                <input type="submit" class="button is-Large" value="SEARCH">
             </form>
         </div>
         <div class="hidden box">
