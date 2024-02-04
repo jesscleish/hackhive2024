@@ -10,18 +10,19 @@
 
 {% block page_content %}
     <div class="container">
-    <div class="box">
-        <h1 class="title is-3">SKU Item Lookup</h1>
-        <form class="align-center">
-            <!-- can search by sku -->
-            <label for="shoesku">Enter the SKU:</label>
-            <input type="text" id="shoesku">
-            <input type="submit" class="button" value="SEARCH">
-        </form>
-    </div>
-    <div class="hidden box">
-        <!--results here using endpoint /get_item/<barcode> OR make separate result page-->
-    </div>
+        <div class="box boxbck">
+            <h1 class="title is-3">SKU Item Lookup</h1>
+            <form class="align-center">
+                <!-- can search by sku -->
+                <label for="shoesku">Enter the SKU:</label>
+                <input type="text" id="shoesku" name="shoesku" class="input">
+                <br><br>
+                <input type="submit" class="button is-medium" value="SEARCH">
+            </form>
+        </div>
+        <div class="hidden box">
+            <!--results here using endpoint /get_item/<barcode> OR make separate result page-->
+        </div>
 
     </div>
 

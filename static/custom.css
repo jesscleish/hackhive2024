@@ -122,6 +122,27 @@
 .input2{
     max-width: 50%;
 }
+
+.navbar {
+        display: flex;
+        align-items: center;
+    }
+
+.boxbck{
+    background-color: #E4D1B9;
+}
+
+.boxbck2{
+    background-color: #BE8C63;
+}
+
 label{
     color: black;
+}
+
+table{
+    background-color: white;
+    border-radius: 10px;
+    align-items: center;
+    width: 100%;
 }

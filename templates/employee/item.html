@@ -8,68 +8,81 @@
 
 {% block pos %}
     <div class="container">
-        <div class="box center">
-            <h1 class="title is-4">SKU Search</h1>
-            <form>
+        <div class="box boxbck">
+            <h1 class="title is-3">SKU Item Lookup</h1>
+            <form class="align-center">
                 <!-- can search by sku -->
-                <label for="shoesku">Enter the SKU:</label>
-                <input type="text" id="shoesku">
-                <input type="submit" class="button" value="SEARCH">
+                <label for="shoesku" class="subtitle">Enter the SKU:</label>
+                <input type="text" id="shoesku" name="shoesku" class="input">
+                <br><br>
+                <input type="submit" class="button is-Large" value="SEARCH">
             </form>
         </div>
-        <div class="box">
-        <h1 class="title is-4">Generic Lookup</h1>
+
+        <div class="box boxbck2">
+            <h1 class="title is-4">Generic Lookup</h1>
             <form>
+                <label class="subtitle" for="shoes">Choose Footwear Name:</label>
+                <div class="select">
                     {% set shoe_names = [] %}
                     <!-- lookup item based on categories in database -->
-                    <label for="shoes">Choose Footwear Name:</label>
-
-                        <select name="shoes" id="shoes">
-                            {% for name in shoe_names %}
-                                <option value="{{ name.name }}">{{ name.name }}</option>
-                            {% endfor %}
-                        </select>
-                    <br>
-                        {% set shoe_brands = [] %}
-                        <label for="brand">Choose Brand:</label>
-                        <select name="brand" id="brand">
-                            {% for brand in shoe_names %}
-                                <option value="{{ name.name }}">{{ name.name }}</option>
-                            {% endfor %}
-                        </select>
-                    <br>
-                        {% set shoe_types = ["Any", 'Sneaker', 'Running Shoe', 'Sandal', 'Boot', 'Heel'] %}
-                        <label for="shoetype">Choose Type:</label>
-                        <select name="shoetype" id="shoetype">
-                            {% for type in shoe_types %}
-                                <option value="{{ type }}">{{ type }}</option>
-                            {% endfor %}
-                        </select>
-                    <br>
-                        <label for="gender">Choose Gender:</label>
-                        <select name="gender" id="gender">
-                            <option value="m">Male</option>
-                            <option value="f">Female</option>
-                        </select>
-                    <br>
-                        {% set shoe_size = [7,8,9,10] %}
-                        <label for="size">Choose Size:</label>
-                        <select name="size" id="size">
-                            {% for item in shoe_size %}
-                                {% set sizeitem = "size"+item|string %}
-                                <option value="{{ sizeitem }}">{{ item }}</option>
-                            {% endfor %}
-                        </select>
-                    <br>
-                        {% set colours = ['Any','Red', 'Blue', 'Black', 'White', 'Brown', 'Green', 'Gray', 'Purple', 'Yellow', 'Orange'] %}
-                        <label for="colour">Choose Colour:</label>
-                        <select name="colour" id="colour">
-                            {% for item in colours %}
-                                <option value="{{ item }}">{{ item }}</option>
-                            {% endfor %}
-                        </select>
-<br><br>
-                    <input type="submit" class="button" value="SEARCH">
+                    <select name="shoes" id="shoes">
+                        {% for name in shoe_names %}
+                            <option value="{{ name.name }}">{{ name.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br><br>
+                <label class="subtitle" for="brand">Choose Brand:</label>
+                <div class="select">
+                    {% set shoe_brands = [] %}
+                    <select name="brand" id="brand">
+                        {% for brand in shoe_names %}
+                            <option value="{{ name.name }}">{{ name.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br><br>
+            <label class="subtitle" for="shoetype">Choose Type:</label>
+                <div class="select">
+                    {% set shoe_types = ["Any", 'Sneaker', 'Running Shoe', 'Sandal', 'Boot', 'Heel'] %}
+                    <select name="shoetype" id="shoetype" class="select">
+                        {% for type in shoe_types %}
+                            <option value="{{ type }}">{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br><br>
+            <label class="subtitle" for="gender">Choose Gender:</label>
+                <div class="select">
+                    <select name="gender" id="gender">
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                    </select>
+                </div>
+                <br><br>
+             <label class="subtitle" for="size">Choose Size:</label>
+                <div class="select">
+                    {% set shoe_size = [7,8,9,10] %}
+                    <select name="size" id="size">
+                        {% for item in shoe_size %}
+                            {% set sizeitem = "size"+item|string %}
+                            <option value="{{ sizeitem }}">{{ item }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br><br>
+             <label class="subtitle" for="colour">Choose Colour:</label>
+                <div class="select">
+                    {% set colours = ['Any','Red', 'Blue', 'Black', 'White', 'Brown', 'Green', 'Gray', 'Purple', 'Yellow', 'Orange'] %}
+                    <select name="colour" id="colour">
+                        {% for item in colours %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br><br>
+                <input type="submit" class="button is-large" value="SEARCH">
                 <!-- automatically use QuantityInStock > 0 -->
             </form>
         </div>

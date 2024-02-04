@@ -8,7 +8,7 @@
 
 {% block pos %}
     <div class="container">
-        <div class="barcode box center2">
+        <div class="barcode box center2 boxbck">
             <h2 class="center2 title is-3"><u>SKU</u></h2>
             <form class="center2" action="">
                 <label class="title is-4" for="barcode">Barcode (number):</label>
@@ -17,7 +17,7 @@
                 <!-- probably need to append to lists onclick, and add value to total -->
             </form>
         </div>
-    <div class="box center2">
+    <div class="box center2 boxbck2">
         <h4 class="center2 title is-3">Items</h4>
         <img src="../../static/images/shopping-bag.png" width="70">
 
@@ -29,7 +29,7 @@
             {% endfor %}
         </ul>
         <br>
-        <p class="subtitle is-3">Total: <span id="total_price">0</span></p>
+        <p class="title is-3">Total: <span id="total_price">0</span></p>
     </div>
     </div>
     <div class="barcode"></div>

@@ -15,17 +15,17 @@
             <h4 class="adder"><u>ADD A USER</u></h4>
             <form action="{{ url_for('login') }}" method="post">
                 <label for="username" class="userinput ">Username:</label>
-                <input type="text" id="create_user" name="create_user">
+                <input type="text" id="create_user" name="create_user" class="input">
                 <br>
                 <br>
                 <label class="userinput" for="password">Password:</label>
-                <input type="password" id="create_pass" name="create_pass">
+                <input type="password" id="create_pass" name="create_pass" class="input">
                 <br>
                 <br>
-                <input id="adminbox" class="adminbox" type="checkbox">
+                <input id="adminbox" class="adminbox is-medium" type="checkbox">
                 <label for="adminbox">User Admin?</label>
                 <br> <br>
-                <input class="button" type="submit" value="Create User">
+                <input class="button is-medium" type="submit" value="Create User">
             </form>
         </div>
         <br>
@@ -33,10 +33,10 @@
             <h4 class="remover"><u>DELETE A USER</u></h4>
             <form action="{{ url_for('login') }}" method="post">
                 <label class="userinput" for="username">Username:</label>
-                <input type="text" id="delete_user" name="delete_user">
+                <input type="text" id="delete_user" name="delete_user" class="input">
                 <br>
                 <br>
-                <input class="button" type="submit" value="Delete">
+                <input class="button is-medium" type="submit" value="Delete User  ">
             </form>
         </div>
     <br><br>
