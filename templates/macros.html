@@ -1,7 +1,7 @@
 {% macro nav_link(endpoint, text) %}
 {% if request.endpoint.endswith(endpoint) %}
-<a class="active" href="{{ url_for(endpoint) }}">{{text}}</a>
+<a class="active paddingHeader navLink" href="{{ url_for(endpoint) }}">{{text}}</a>
 {% else %}
-<a href="{{ url_for(endpoint) }}">{{text}}</a>
+<a  class="paddingHeader navLink" href="{{ url_for(endpoint) }}">{{text}}</a>
 {% endif %}
 {% endmacro %}

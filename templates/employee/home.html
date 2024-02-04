@@ -7,18 +7,20 @@
 {% endblock %}
 
 {% block pos %}
-<div>
+<div class="barcode">
     <h3>SKU</h3>
     <form action="">
         <label for="barcode">Barcode (number):</label>
-        <input type="number" id="barcode" name="barcode"><br>
-        <input type="submit" value="ADD"> <!-- probably need to append to lists onclick, and add value to total -->
+        <input type="number" id="barcode" name="barcode" class="barcode"><br>
+        <input class="button" type="button" value="ADD" onclick="addItem()"> <!-- probably need to append to lists onclick, and add value to total -->
       </form>
+
+</div>
 </div>
 
 <div>
     <h4>Items</h4>
-    <img src="./assets/shopping-bag.png" width="50">
+    <img src="../../static/images/shopping-bag.png" width="70">
 
     <ul>
         {% for item in order_items %}

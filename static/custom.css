@@ -4,8 +4,29 @@
     visibility: hidden;
 }
 
+.bckBlue
+{
+    background: #8FBDD3;
+}
 
-.header{
+.navLink{
+    color: black;
+}
+
+.active{
+    font-weight: bolder;
+    text-decoration: underline;
+    background: #658c9e;
+}
+.paddingHeader
+{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    bottom: 10px;
+}
+
+.header2{
     text-align: center;
     font-weight: bold;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
@@ -16,6 +37,7 @@
 .adder{
     font-size: 20px;
     font-weight: bold;
+    color: black;
 }
 
 .userinput{
@@ -34,8 +56,10 @@
 
 .remover{
     font-size: 20px;
+    font-weight: bold;
     margin-top: 20px;
     margin-bottom: 20px;
+    color: black;
 }
 
 .company{
@@ -44,7 +68,7 @@
 }
 
 .top{
-    align-items: centers;
+    align-items: center;
     width: 100%;
     background-color: #8FBDD3;
     display: inline-block;
@@ -70,7 +94,7 @@
     padding-bottom: 50px;
 }
 
-.footer{
+.footer2{
     background-color: #A97155;
     padding-TOP: 2%;
     padding-bottom: 1%;

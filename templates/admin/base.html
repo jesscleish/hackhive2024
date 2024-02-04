@@ -12,10 +12,19 @@
     {% block html_head %}{% endblock %} <!-- anything else from extending html -->
 </head>
 <body>
+<nav class="navbar bckBlue">
+    <div class="navbar-brand">
+      <img class="navbar-item" src="../../static/images/logo.jpeg" width="50" height="85">
+      <p class="navbar-item">GOOD SOLE</p>
+  </div>
 {% block navigation %}
 {% endblock %}
+</nav>
 
 {% block page_content %}
 {% endblock %}
 </body>
+<div class="footer2">
+      <p class="copyright">Copyright ©2024 <br> HackHive TEAM 25</p>
+  </div>
 </html>

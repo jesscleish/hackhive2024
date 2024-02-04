@@ -8,36 +8,38 @@
     {{ nav_link('logout', 'LOGOUT') }}
 {% endblock %}
 {% block page_content %}
-    <div class="align-center">
-<h3 class="headingcolor"><u>User Management</u></h3>
-    <!-- add username and password -->
- <div class="addcolor">
-    <h4 class="adder"><u>ADD A USER</u></h4>
-        <form action="{{ url_for('login2') }}" method="post">
-            <label for="username" class="userinput ">Username:</label>
-            <input type="text" id="create_user" name="create_user">
-            <br>
-            <br>
-            <label class="userinput" for="password">Password:</label>
-            <input type="password" id="create_pass" name="create_pass">
-            <br>
-            <br>
-            <input id="adminbox" class="adminbox" type="checkbox">
-            <label for="adminbox">User Admin?</label>
-            <br>
-            <input class ="button" type="submit" value="Create User">
-        </form>
-    </div>
-    <br>
-    <div class="deletecolor">
-      <h4 class="remover"><u>DELETE A USER</u></h4>
-      <form action="{{ url_for('login2') }}" method="post">
-        <label class="userinput" for="username">Username:</label>
-        <input type="text" id="delete_user" name="delete_user">
+    <div class="container center">
+        <h3 class="headingcolor"><u>User Management</u></h3>
+        <!-- add username and password -->
+        <div class="addcolor box">
+            <h4 class="adder"><u>ADD A USER</u></h4>
+            <form action="{{ url_for('login2') }}" method="post">
+                <label for="username" class="userinput ">Username:</label>
+                <input type="text" id="create_user" name="create_user">
+                <br>
+                <br>
+                <label class="userinput" for="password">Password:</label>
+                <input type="password" id="create_pass" name="create_pass">
+                <br>
+                <br>
+                <input id="adminbox" class="adminbox" type="checkbox">
+                <label for="adminbox">User Admin?</label>
+                <br>
+                <input class="button" type="submit" value="Create User">
+            </form>
+        </div>
         <br>
-        <br>
-        <input class ="button" type="submit" value="Delete">
-        </form>
+        <div class="deletecolor box">
+            <h4 class="remover"><u>DELETE A USER</u></h4>
+            <form action="{{ url_for('login2') }}" method="post">
+                <label class="userinput" for="username">Username:</label>
+                <input type="text" id="delete_user" name="delete_user">
+                <br>
+                <br>
+                <input class="button" type="submit" value="Delete">
+            </form>
+        </div>
+    <br><br>
     </div>
-    </div>
+
 {% endblock %}
