@@ -3,6 +3,7 @@
 {% block navigation %}
     {{ nav_link('admin_home', 'Inventory') }}
     {{ nav_link('sales', 'Sales') }}
+    {{ nav_link('sku_search', 'Item Lookup') }}
     {{ nav_link('users', 'Users') }}
     {{ nav_link('logout', 'LOGOUT') }}
 {% endblock %}
@@ -15,28 +16,25 @@
     },]
 
 %}
-    <table>
-        <tr>
-            <th>Shoe Name</th>
-            <th>Brand</th>
-            <th>Price</th>
-            <th>Inventory</th>
-            <!-- etc.... more headers for whatever we want to show -->
-        </tr>
-        {% for item in inventory_list %}
+    <div class = box>
+        <table>
             <tr>
-                <td>{{ item.name }}</td>
-                <td> {{ item.brand }}</td>
-                <td> {{ item.price }} </td>
-                <td> {{ item.inventory }}</td>
+                <th>Shoe Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Inventory</th>
+                <!-- etc.... more headers for whatever we want to show -->
             </tr>
-        {% endfor %}
-    </table>
-
-
-
-
-    <!-- item lookup? -->
+            {% for item in inventory_list %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td> {{ item.brand }}</td>
+                    <td> {{ item.price }} </td>
+                    <td> {{ item.inventory }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}
 

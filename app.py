@@ -27,6 +27,9 @@ def users():
     return render_template('admin/users.html') #this should work properly??
     #templates/admin/home ?
 
+@app.route('/admin/item')
+def sku_search():
+    return render_template('admin/item.html')
 
 @app.route('/employee')
 def employee_home():
