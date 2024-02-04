@@ -9,10 +9,10 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():  # put application's code here
     #    return 'Hello World!'
-
+    session['user'] = 1
     # this will be our login page eventually
     return '<a href="/admin">admin stuff</a> <br> <a href="/employee">employee stuff</a>'
-
+    #return render_template("login.html")
 
 @app.route('/testDB')
 def test_db():  # put application's code here
@@ -71,7 +71,7 @@ def test_db():  # put application's code here
 def admin_home():
     if not isAdmin():
         flash(f'You must be an admin.', 'warning')
-        return redirect(url_for(''))
+        return redirect(url_for('hello_world'))
     return render_template('admin/home.html')  # this should work properly??
     # templates/admin/home ?
 
@@ -80,7 +80,7 @@ def admin_home():
 def sales():
     if not isAdmin():
         flash(f'You must be an admin.', 'warning')
-        return redirect(url_for(''))
+        return redirect(url_for('hello_world'))
     return render_template('admin/sales.html')  # this should work properly??
     # templates/admin/home ?
 
@@ -89,16 +89,27 @@ def sales():
 def users():
     if not isAdmin():
         flash(f'You must be an admin.', 'warning')
-        return redirect(url_for(''))
+        return redirect(url_for('hello_world'))
     return render_template('admin/users.html')  # this should work properly??
     # templates/admin/home ?
+
+@app.route('/admin/addUser', methods=['POST'])
+def addUser():
+    if not isAdmin():
+        flash(f'You must be an admin.', 'warning')
+        return redirect(url_for('hello_world'))
+
+    username = request.form.get('fUsername')
+    password = request.form.get('fPassword')
+
+    # add to db posted information
 
 
 @app.route('/admin/item')
 def sku_search():
     if not isAdmin():
         flash(f'You must be an admin.', 'warning')
-        return redirect(url_for(''))
+        return redirect(url_for('hello_world'))
     return render_template('admin/item.html')
 
 
@@ -106,7 +117,7 @@ def sku_search():
 def employee_home():
     if not isLoggedIn():
         flash(f'You must be logged in.', 'warning')
-        return redirect(url_for(''))
+        return redirect(url_for('hello_world'))
     return render_template('employee/home.html')
     # templates/employee/home ?
 
@@ -115,16 +126,32 @@ def employee_home():
 def item():
     if not isLoggedIn():
         flash(f'You must be logged in.', 'warning')
-        return redirect(url_for(''))
+        return redirect(url_for('hello_world'))
     return render_template('employee/item.html')  # this should work properly??
     # templates/admin/home ?
 
 
+@app.route('/login2', methods=['POST'])
+def login2():
+    username = request.form.get('fUsername')
+    password = request.form.get('fPassword')
+    session['username'] = username
+
+    if username == "admin" and password == "admin":
+        session['user'] = 1
+        return render_template('admin/home.html')
+
+    if username == "emp" and password == "emp":
+        session['user'] = 0
+        return render_template('employee/home.html')
+
+    return render_template('login.html')  # maybe add some sort of message
+
 @app.route('/login', methods=['POST'])
 def login():
 
-    username = request.form.get('username')
-    password = request.form.get('password')
+    username = request.form.get('fUsername')
+    password = request.form.get('fPassword')
     success = False
 
     # now check against our own database
@@ -155,7 +182,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('login2'))
 
 
 @app.route('/get_item/<barcode>')
@@ -185,4 +212,10 @@ def isAdmin():
     except:
         return False
 if __name__ == '__main__':
+    # Quick test configuration. Please use proper Flask configuration options
+    # in production settings, and use a separate file or environment variables
+    # to manage the secret key!
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
     app.run()

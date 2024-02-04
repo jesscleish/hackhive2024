@@ -8,30 +8,29 @@
     {{ nav_link('logout', 'LOGOUT') }}
 {% endblock %}
 {% block page_content %}
-
+<h3 class="headingcolor"><u>User Management</u></h3>
     <!-- add username and password -->
-
-    <div>
-    <h4><u>ADD</u></h4>
-        <form action="" method="post">
-            <label for="username">Username:</label>
+ <div class="addcolor">
+    <h4 class="adder"><u>ADD A USER</u></h4>
+        <form action="{{ url_for('login2') }}" method="post">
+            <label for="username" class="userinput ">Username:</label>
             <input type="text" id="create_user" name="create_user">
             <br>
             <br>
-            <label for="password">Password:</label>
+            <label class="userinput" for="password">Password:</label>
             <input type="password" id="create_pass" name="create_pass">
             <br>
             <br>
-            <input type="checkbox">
-            <label>User Admin?</label>
+            <input id="adminbox" class="adminbox" type="checkbox">
+            <label for="adminbox">User Admin?</label>
             <br>
             <input type="submit" value="Create User">
         </form>
     </div>
     <br>
     <div>
-      <h4><u>DELETE</u></h4>
-      <form action="" method="post">
+      <h4><u>DELETE A USER</u></h4>
+      <form action="{{url_for }}" method="post">
         <label for="username">Username:</label>
         <input type="text" id="delete_user" name="delete_user">
         <br>
@@ -41,4 +40,3 @@
     </div>
 
 {% endblock %}
-

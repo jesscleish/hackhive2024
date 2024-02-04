@@ -7,16 +7,17 @@
 
 <img src="https://www.designevo.com/res/templates/thumb_small/five-pointed-star-simple-jar.webp" width="200" height"400">
 
-<form>
+<form action ="{{ url_for('login2') }}" method ="post">
 	<label for="fUsername">Username:</label><br>
 	<input type="text" id="fUsername" name="fUsername"><br>
 
 	<label for="fPassword">Password:</label><br>
 	<input type="text" id="fPassword" name="fPassword"><br>
+    <input type="submit" value="login">
 	
 </form>
 
-<button type="button">Login</button>
+
 
 </body>
 </html>
