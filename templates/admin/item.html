@@ -9,12 +9,19 @@
 {% endblock %}
 
 {% block page_content %}
-    <form>
-    <!-- can search by sku -->
-    <label for ="shoesku">Enter the SKU:</label>
-    <input type="text" id="shoesku">
-    <br>
-    <input type ="submit" value="SEARCH">
-    </form>
+    <div class="container">
+    <div class="box">
+        <form class="align-center">
+            <!-- can search by sku -->
+            <label for="shoesku">Enter the SKU:</label>
+            <input type="text" id="shoesku">
+            <input type="submit" class="button" value="SEARCH">
+        </form>
+    </div>
+    <div class="hidden box">
+        <!--results here using endpoint /get_item/<barcode> OR make separate result page-->
+    </div>
+
+    </div>
 
 {% endblock %}

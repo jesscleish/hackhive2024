@@ -16,24 +16,39 @@
     },]
 
 %}
-    <div class = box>
-        <table>
-            <tr>
+    <div class="container">
+    <div class ="responsive-table__container box center">
+        <table class ="table">
+        <thead>
+            <tr class="ui-widget-header">
                 <th>Shoe Name</th>
                 <th>Brand</th>
+                <th>Type</th>
+                <th>Gender</th>
+                <th>Size</th>
                 <th>Price</th>
                 <th>Inventory</th>
-                <!-- etc.... more headers for whatever we want to show -->
+                <th>SKU</th>
+                <th>Colour</th>
             </tr>
+        </thead>
+        <tbody>
             {% for item in inventory_list %}
                 <tr>
                     <td>{{ item.name }}</td>
                     <td> {{ item.brand }}</td>
+                    <td> {{ item.type }} </td>
+                    <td> {{ item.gender }} </td>
+                    <td> {{ item.size }} </td>
                     <td> {{ item.price }} </td>
                     <td> {{ item.inventory }}</td>
+                    <td> {{ item.sku }} </td>
+                    <td> {{ item.colour }} </td>
                 </tr>
             {% endfor %}
+        </tbody>
         </table>
+    </div>
     </div>
 
 {% endblock %}
